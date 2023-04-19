@@ -31,6 +31,17 @@ function App() {
     setHasCarRental(event.target.checked);
   };
 
+  const mandarInfo = () => {
+
+    const telefono = "4438650052"; // Número de teléfono de WhatsApp
+    const mensaje = `El costo de su reserva por ${numberOfDays} noches, da un total de ${formatoMoneda(totalCost)}. Donde el precio por noche es de ${formatoMoneda(totalNoche)}, con un costo de persona por noche de ${formatoMoneda(totalPeople)}.`;
+
+    const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+    // window.location.href = url;
+    window.open(url, '_blank');
+
+  }
+
   const calculateTotalCost = () => {
     let baseCost = 0;
     if (numberOfPeople <= 2) {
@@ -61,7 +72,7 @@ function App() {
       (baseCost + seasonCost + carRentalCost) * numberOfDays + 500;
     setTotalCost(totalCost);
 
-    const totalPeople = (totalCost / numberOfDays) / numberOfPeople;
+    const totalPeople = totalCost / numberOfDays / numberOfPeople;
     setTotalPeople(totalPeople);
 
     const totalNoche = totalCost / numberOfDays;
@@ -148,6 +159,7 @@ function App() {
         >
           Cotizar 🏖️
         </button>
+
         {totalCost !== 0 && (
           <p className="">
             Precio por persona x noche:{" "}
@@ -161,9 +173,20 @@ function App() {
           </p>
         )}
         {totalCost !== 0 && (
-          <p className="font-monospace fw-bold fs-3">Total: <code>{formatoMoneda(totalCost)}</code></p>
+          <p className="font-monospace fw-bold fs-3">
+            Total: <code>{formatoMoneda(totalCost)}</code>
+          </p>
         )}
-      </div>      
+
+        {/* Submit button */}
+        <button
+          onClick={mandarInfo}
+          type="submit"
+          className="btn btn-primary mb-4 btn-success"
+        >
+          Mándar info por WA ✅
+        </button>
+      </div>
     </div>
   );
 }
