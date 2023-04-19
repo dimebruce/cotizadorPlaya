@@ -13,6 +13,7 @@ function App() {
   const [hasCarRental, setHasCarRental] = useState(false);
   const [totalCost, setTotalCost] = useState(0);
   const [totalPeople, setTotalPeople] = useState(0);
+  const [totalNoche, setTotalNoche] = useState(0);
 
   const handleNumberOfPeopleChange = (event) => {
     setNumberOfPeople(parseInt(event.target.value));
@@ -60,9 +61,11 @@ function App() {
       (baseCost + seasonCost + carRentalCost) * numberOfDays + 500;
     setTotalCost(totalCost);
 
-    const totalPeople =
-    (totalCost  / numberOfDays) / numberOfPeople;
-  setTotalPeople(totalPeople);
+    const totalPeople = (totalCost / numberOfDays) / numberOfPeople;
+    setTotalPeople(totalPeople);
+
+    const totalNoche = totalCost / numberOfDays;
+    setTotalNoche(totalNoche);
   };
 
   return (
@@ -126,7 +129,6 @@ function App() {
           <div className="form-check d-flex justify-content-center mb-4">
             <input
               className="form-check-input me-2"
-
               type="checkbox"
               checked={hasCarRental}
               onChange={handleHasCarRentalChange}
@@ -139,12 +141,29 @@ function App() {
         </form>
 
         {/* Submit button */}
-        <button onClick={calculateTotalCost} type="submit" className="btn btn-primary mb-4 w-100">
-            Cotizar 🏖️
-          </button>
-        {totalCost !== 0 && <p className="fw-bold">Precio por persona x noche: <code className="fs-3">{ formatoMoneda(totalPeople)}</code></p>}
-        {totalCost !== 0 && <p className="font-monospace">Total: {formatoMoneda(totalCost)}</p>}
-      </div>
+        <button
+          onClick={calculateTotalCost}
+          type="submit"
+          className="btn btn-primary mb-4 w-100"
+        >
+          Cotizar 🏖️
+        </button>
+        {totalCost !== 0 && (
+          <p className="">
+            Precio por persona x noche:{" "}
+            <code className="">{formatoMoneda(totalPeople)}</code>
+          </p>
+        )}
+        {totalCost !== 0 && (
+          <p className="">
+            Precio x noche:{" "}
+            <code className="fs-5">{formatoMoneda(totalNoche)}</code>
+          </p>
+        )}
+        {totalCost !== 0 && (
+          <p className="font-monospace fw-bold fs-3">Total: <code>{formatoMoneda(totalCost)}</code></p>
+        )}
+      </div>      
     </div>
   );
 }
