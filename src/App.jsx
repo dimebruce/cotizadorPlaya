@@ -32,15 +32,17 @@ function App() {
   };
 
   const mandarInfo = () => {
-
     const telefono = "4438650052"; // Número de teléfono de WhatsApp
-    const mensaje = `El costo de su reserva por ${numberOfDays} noches, da un total de ${formatoMoneda(totalCost)}. Donde el precio por noche es de ${formatoMoneda(totalNoche)}, con un costo de persona por noche de ${formatoMoneda(totalPeople)}.`;
+    const mensaje = `El costo de su reserva por ${numberOfDays} noches, da un total de ${formatoMoneda(
+      totalCost
+    )}. Donde el precio por noche es de ${formatoMoneda(
+      totalNoche
+    )}, con un costo de persona por noche de ${formatoMoneda(totalPeople)}.`;
 
     const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
     // window.location.href = url;
-    window.open(url, '_blank');
-
-  }
+    window.open(url, "_blank");
+  };
 
   const calculateTotalCost = () => {
     let baseCost = 0;
@@ -178,14 +180,15 @@ function App() {
           </p>
         )}
 
-        {/* Submit button */}
-        <button
-          onClick={mandarInfo}
-          type="submit"
-          className="btn btn-primary mb-4 btn-success"
-        >
-          Mándar info por WA ✅
-        </button>
+        {totalCost !== 0 && (
+          <button
+            onClick={mandarInfo}
+            type="submit"
+            className="btn btn-primary mb-4 btn-success"
+          >
+            Mandar info por WA ✅
+          </button>
+        )}
       </div>
     </div>
   );
